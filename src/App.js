@@ -11,6 +11,7 @@ import Footer from "./components/home/Footer";
 import Tasks from "./components/home/Tasks";
 import About from "./components/home/About";
 import AddTask from "./components/home/AddTask";
+import Logout from "./components/login/Logout";
 
 function App() {
   const [showAddTask, setShowAddTask] = useState(true);
@@ -64,9 +65,6 @@ function App() {
     });
     const data = await res.json();
     setTasks([...tasks, data]);
-    // const id = Math.floor(Math.random() * 1000) + 1;
-    // const newTask = { id, ...task };
-    // setTasks([...tasks, newTask]);
   };
 
   //Delete Task
@@ -110,6 +108,7 @@ function App() {
       ) : (
         "No task to show"
       )}
+      <Logout />
       <Footer />
       <Outlet />
     </div>
