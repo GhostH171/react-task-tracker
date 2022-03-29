@@ -6,6 +6,7 @@ const AddTask = ({ onAdd }) => {
   const [text, setText] = useState("");
   const [day, setDay] = useState("");
   const [reminder, setReminder] = useState(false);
+  const [createdbyId, setCreatedByID] = useState("");
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -14,11 +15,17 @@ const AddTask = ({ onAdd }) => {
       alert("Please add a task");
       return;
     }
-
-    onAdd({ text, day, reminder });
+    const getUserId = async (id) => {
+      const res = await fetch(`http://localhost:5000/accounts/1`);
+      const data = await res.json();
+      return data;
+    };
+    console.log(getUserId);
+    onAdd({ text, day, reminder, createdbyId });
     setText("");
     setDay("");
     setReminder(false);
+    setCreatedByID(getUserId);
   };
 
   return (
@@ -50,6 +57,7 @@ const AddTask = ({ onAdd }) => {
           onChange={(e) => setReminder(e.currentTarget.checked)}
         />
       </div>
+
       <input type="submit" value="Save Task" className="btn btn-block" />
     </form>
   );

@@ -22,6 +22,8 @@ const Login = () => {
     }
     console.log("login", email, password);
     auth(email, password);
+    localStorage.setItem("acc", email);
+    localStorage.setItem("pass", password);
   };
 
   const auth = async (email, password) => {
@@ -42,7 +44,6 @@ const Login = () => {
           if (result.length === 1) {
             setEmail("");
             setPassword("");
-            alert("Login success");
 
             await saveAuthData(result[0].id);
 
