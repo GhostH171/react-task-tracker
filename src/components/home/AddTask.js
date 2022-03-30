@@ -1,64 +1,55 @@
-import { useState } from "react";
-
-import React from "react";
+import React, { useState } from "react";
 
 const AddTask = ({ onAdd }) => {
-  const [text, setText] = useState("");
-  const [day, setDay] = useState("");
-  const [reminder, setReminder] = useState(false);
-  const [createdbyId, setCreatedByID] = useState("");
+  const [title, setTitle] = useState("");
+  const [userId, setUserId] = useState(0);
+  const [completed, setCompleted] = useState(false);
 
   const onSubmit = (e) => {
     e.preventDefault();
 
-    if (!text) {
-      alert("Please add a task");
+    if (!title) {
+      alert("Please add a todo");
       return;
     }
-    const getUserId = async (id) => {
-      const res = await fetch(`http://localhost:5000/accounts/1`);
-      const data = await res.json();
-      return data;
-    };
-    console.log(getUserId);
-    onAdd({ text, day, reminder, createdbyId });
-    setText("");
-    setDay("");
-    setReminder(false);
-    setCreatedByID(getUserId);
+    onAdd({ title, userId, completed });
+    setTitle("");
+    setUserId(0);
+    setCompleted(false);
   };
 
   return (
     <form className="add-form" onSubmit={onSubmit}>
       <div className="form-control">
-        <label>Task</label>
+        <label>Title</label>
         <input
           type="text"
-          placeholder="Add Task"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
+          placeholder="Add Todo"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
         />
       </div>
       <div className="form-control">
-        <label>Day & Time</label>
+        <label>Created by Id </label>
         <input
-          type="text"
-          placeholder="Add Day & Time"
-          value={day}
-          onChange={(e) => setDay(e.target.value)}
+          type="number"
+          placeholder="Id"
+          value={userId}
+          onChange={(e) => setUserId(e.target.value)}
+          min={0}
         />
       </div>
       <div className="form-control form-control-check">
-        <label>Set Reminder</label>
+        <label>Set Completed</label>
         <input
           type="checkbox"
-          checked={reminder}
-          value={reminder}
-          onChange={(e) => setReminder(e.currentTarget.checked)}
+          checked={completed}
+          value={completed}
+          onChange={() => setCompleted(!completed)}
         />
       </div>
 
-      <input type="submit" value="Save Task" className="btn btn-block" />
+      <input type="submit" value="Save Todo" className="btn btn-block" />
     </form>
   );
 };

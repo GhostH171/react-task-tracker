@@ -1,29 +1,24 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import App from "./App";
-
-import reportWebVitals from "./reportWebVitals";
-import {
-  BrowserRouter as BrowserRouter,
-  Routes,
-  Route,
-} from "react-router-dom";
-import About from "./components/home/About";
-import Register from "./components/login/Register";
+import { AppContextProvider } from "./components/context/ContextApp";
+import Errorpage from "./components/login/Errorpage";
 import Login from "./components/login/Login";
+import "./index.css";
+import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />}>
-          <Route path="about" element={<About />} />
-        </Route>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-      </Routes>
-    </BrowserRouter>
+    <AppContextProvider>
+      <Router>
+        <Routes>
+          <Route exact path="/login" element={<Login />} />
+          <Route path="/" element={<App />} />
+          <Route path="*" element={<Errorpage />} />
+        </Routes>
+      </Router>
+    </AppContextProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
