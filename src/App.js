@@ -1,11 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Routes, Route } from "react-router-dom";
-import { useAppContext } from "./components/context/ContextApp";
+import React, { useEffect, useState } from "react";
+import { useAuth } from "./components/context/ContextApp";
 import AddTask from "./components/home/AddTask";
 import Footer from "./components/home/Footer";
 import Header from "./components/home/Header";
 import Tasks from "./components/home/Tasks";
-import Login from "./components/login/Login";
 import Logout from "./components/login/Logout";
 
 function App() {
@@ -21,7 +19,6 @@ function App() {
   useEffect(() => {
     getTasks();
   }, [flag]);
-
   // // fetch tasks
   const fetchTasks = async () => {
     const res = await fetch("https://jsonplaceholder.typicode.com/todos");
@@ -77,9 +74,6 @@ function App() {
     });
     setFlag(!flag);
   };
-  const demo = useAppContext();
-
-  console.log(demo);
 
   return (
     <div className="container">

@@ -1,24 +1,38 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import App from "./App";
-import { AppContextProvider } from "./components/context/ContextApp";
+import { ProvideAuth, useAuth } from "./components/context/ContextApp";
 import Errorpage from "./components/login/Errorpage";
 import Login from "./components/login/Login";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-
+export function PrivateRoute({ children, ...rest }) {
+  let auth = useAuth();
+  console.log(auth.user);
+  return auth.user ? (
+    <App />
+  ) : (
+    <Link
+      to={{
+        pathname: "/login",
+      }}
+    />
+  );
+}
 ReactDOM.render(
   <React.StrictMode>
-    <AppContextProvider>
-      <Router>
-        <Routes>
-          <Route exact path="/login" element={<Login />} />
-          <Route path="/" element={<App />} />
-          <Route path="*" element={<Errorpage />} />
-        </Routes>
-      </Router>
-    </AppContextProvider>
+    <ProvideAuth>
+      <BrowserRouter>
+        <>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<PrivateRoute />} />
+            <Route path="*" element={<Errorpage />} />
+          </Routes>
+        </>
+      </BrowserRouter>
+    </ProvideAuth>
   </React.StrictMode>,
   document.getElementById("root")
 );

@@ -1,25 +1,40 @@
-import React from "react";
-
-const AppContext = React.createContext({});
-
-export const AppContextProvider = (props) => {
-  const demo = "demo";
-  const fakeAuth = {
-    isAuthenticated: false,
-    signin(cb) {
-      fakeAuth.isAuthenticated = true;
-      setTimeout(cb, 100); // fake async
-    },
-    signout(cb) {
-      fakeAuth.isAuthenticated = false;
-      setTimeout(cb, 100);
-    },
-  };
-  return (
-    <AppContext.Provider value={{ demo: demo }}>
-      {props.children}
-    </AppContext.Provider>
-  );
+import React, { createContext, useContext, useState } from "react";
+const fakeAuth = {
+  isAuthenticated: false,
+  signin() {
+    fakeAuth.isAuthenticated = true;
+  },
+  signout() {
+    fakeAuth.isAuthenticated = false;
+  },
 };
+const authContext = createContext();
+export function ProvideAuth({ children }) {
+  const auth = useProvideAuth();
+  return <authContext.Provider value={auth}>{children}</authContext.Provider>;
+}
+export function useAuth() {
+  return useContext(authContext);
+}
+function useProvideAuth() {
+  const [user, setUser] = useState(null);
 
-export const useAppContext = () => React.useContext(AppContext);
+  const signin = (obj) => {
+    console.log(obj);
+    return fakeAuth.signin(() => {
+      setUser(obj);
+    });
+  };
+
+  const signout = () => {
+    return fakeAuth.signout(() => {
+      setUser(null);
+    });
+  };
+
+  return {
+    user,
+    signin,
+    signout,
+  };
+}
