@@ -1,12 +1,16 @@
-import React, { useState } from "react";
-import Footer from "../home/Footer";
+import React, { useEffect, useState } from "react";
+
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/ContextApp";
-const LoginForm = () => {
+import Footer from "../home/Footer";
+
+const LoginForm = (props) => {
+  const { callbackFunc } = props;
+
   let navigate = useNavigate();
   let location = useLocation();
   let auth = useAuth();
-  let { from } = location.state || { from: { pathname: "/" } };
+  let {} = location.state || { from: { pathname: "/" } };
 
   let login = () => {
     if (user !== "" && email !== "") {
@@ -18,6 +22,25 @@ const LoginForm = () => {
   };
   const [user, setUser] = useState("");
   const [email, setEmail] = useState("");
+  const [users, setUsers] = useState([]);
+  const getUsers = async () => {
+    const usersFromServer = await fetchUsers();
+    setUsers(usersFromServer);
+  };
+
+  const fetchUsers = async () => {
+    const res = await fetch("https://jsonplaceholder.typicode.com/users");
+    const data = await res.json();
+    return data;
+  };
+
+  useEffect(() => {
+    getUsers();
+  }, []);
+
+  useEffect(() => {
+    callbackFunc(users);
+  }, [users]);
 
   return (
     <div className="container">
@@ -42,7 +65,14 @@ const LoginForm = () => {
         </div>
         <input type="submit" value="Log In" className="btn btn-block" />
       </form>
-      <input type="button" value="Sign up" className="btn btn-block" />
+      <input
+        type="button"
+        value="Sign up"
+        className="btn btn-block"
+        onClick={() => {
+          navigate("/Register");
+        }}
+      />
 
       <Footer />
     </div>

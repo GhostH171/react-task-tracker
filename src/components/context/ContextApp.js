@@ -20,10 +20,8 @@ function useProvideAuth() {
   const [user, setUser] = useState(null);
 
   const signin = (obj) => {
-    console.log(obj);
-    return fakeAuth.signin(() => {
-      setUser(obj);
-    });
+    setUser(obj);
+    return fakeAuth.signin();
   };
 
   const signout = () => {
