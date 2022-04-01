@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useAuth } from "./components/context/ContextApp";
 import AddTask from "./components/home/AddTask";
 import Footer from "./components/home/Footer";
 import Header from "./components/home/Header";

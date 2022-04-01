@@ -30,7 +30,9 @@ const LoginForm = (props) => {
 
   const fetchUsers = async () => {
     const res = await fetch("https://jsonplaceholder.typicode.com/users");
+    // Get data from response
     const data = await res.json();
+    console.log(data);
     return data;
   };
 
@@ -39,8 +41,8 @@ const LoginForm = (props) => {
   }, []);
 
   useEffect(() => {
-    callbackFunc(users);
-  }, [users]);
+    callbackFunc(true);
+  }, [users, callbackFunc]);
 
   return (
     <div className="container">

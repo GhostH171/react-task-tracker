@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import App from "./App";
@@ -11,12 +11,11 @@ import reportWebVitals from "./reportWebVitals";
 
 export function PrivateRoute({ children, ...rest }) {
   let auth = useAuth();
-  const [listUser, setListUser] = useState([]);
-  const callBackToSetListUser = (childData) => {
-    console.log(childData);
-  };
+  const callBackToSetListUser = (childData) => {};
 
-  return auth.user ? <App /> : <Login callbackFunc={callBackToSetListUser} />;
+  const [flag, setFlag] = useState(false);
+
+  return flag ? <App /> : <Login callbackFunc={callBackToSetListUser} />;
 }
 
 ReactDOM.render(
