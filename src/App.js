@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useAuth } from "./components/context/ContextApp";
 import AddTask from "./components/home/AddTask";
 import Footer from "./components/home/Footer";
 import Header from "./components/home/Header";
@@ -9,12 +10,23 @@ function App() {
   const [showAddTask, setShowAddTask] = useState(true);
   const [tasks, setTasks] = useState([]);
   const [flag, setFlag] = useState(true);
+  const [userId, setUserId] = useState(true);
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const getTasks = async () => {
     const tasksFromServer = await fetchTasks();
     setTasks(tasksFromServer);
   };
 
+  // const getTaskbyUserId = () => {
+  //   const tasksFromServerById = tasks.filter((data) => data.userId === userId);
+  //   if (tasksFromServerById) {
+  //     setTasks(tasksFromServerById);
+  //   } else {
+  //     setTasks(null);
+  //   }
+  // };
+  // console.log(getTaskbyUserId(1));
   useEffect(() => {
     getTasks();
   }, [flag]);
@@ -35,7 +47,6 @@ function App() {
     );
 
     const data = await res.json();
-
     return data;
   };
 

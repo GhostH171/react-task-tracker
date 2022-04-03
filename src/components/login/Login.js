@@ -32,7 +32,6 @@ const LoginForm = (props) => {
     const res = await fetch("https://jsonplaceholder.typicode.com/users");
     // Get data from response
     const data = await res.json();
-    console.log(data);
     return data;
   };
 
@@ -43,6 +42,17 @@ const LoginForm = (props) => {
   useEffect(() => {
     callbackFunc(true);
   }, [users, callbackFunc]);
+
+  const onClickHandler = () => {
+    const findUser = users.find(
+      (data) => data.username === user && data.email === email
+    );
+    if (findUser) {
+      navigate("/App");
+    } else {
+      navigate("/login");
+    }
+  };
 
   return (
     <div className="container">
@@ -65,7 +75,12 @@ const LoginForm = (props) => {
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <input type="submit" value="Log In" className="btn btn-block" />
+        <input
+          type="submit"
+          value="Log In"
+          className="btn btn-block"
+          onClick={onClickHandler}
+        />
       </form>
       <input
         type="button"

@@ -11,8 +11,10 @@ import reportWebVitals from "./reportWebVitals";
 
 export function PrivateRoute({ children, ...rest }) {
   let auth = useAuth();
-  const callBackToSetListUser = (childData) => {};
-
+  console.log(auth);
+  const callBackToSetListUser = (childData) => {
+    auth.setListuser(childData);
+  };
   const [flag, setFlag] = useState(false);
 
   return flag ? <App /> : <Login callbackFunc={callBackToSetListUser} />;
@@ -24,10 +26,11 @@ ReactDOM.render(
       <BrowserRouter>
         <>
           <Routes>
-            <Route path="/login" element={<Login />} />
+            {/* <Route path="/login" element={<Login />} /> */}
             <Route path="/" element={<PrivateRoute />} />
             <Route path="*" element={<Errorpage />} />
             <Route path="/Register" element={<Register />} />
+            <Route path="/App" element={<App />} />
           </Routes>
         </>
       </BrowserRouter>
