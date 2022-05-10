@@ -18,6 +18,9 @@ const LoginForm = (props) => {
       alert("nhap vao di");
     }
   };
+
+  const a = 5;
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [users, setUsers] = useState([]);
@@ -30,13 +33,23 @@ const LoginForm = (props) => {
     const res = await fetch("http://localhost:5000/users");
     // Get data from response
     const data = await res.json();
-    console.log(data);
     return data;
   };
 
   useEffect(() => {
     getUsers();
   }, []);
+
+  const onClickHandler = () => {
+    const findUser = users.find(
+      (data) => data.username === username && data.passoword === password
+    );
+    if (findUser) {
+      navigate("/App");
+    } else {
+      navigate("/login");
+    }
+  };
 
   return (
     <div className="container">
@@ -59,7 +72,12 @@ const LoginForm = (props) => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <input type="submit" value="Log In" className="btn btn-block" />
+        <input
+          type="submit"
+          value="Log In"
+          className="btn btn-block"
+          onClick={onClickHandler}
+        />
       </form>
       <input
         type="button"

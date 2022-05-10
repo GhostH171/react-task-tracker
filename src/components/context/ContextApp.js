@@ -18,6 +18,7 @@ export function useAuth() {
 }
 function useProvideAuth() {
   const [user, setUser] = useState(null);
+  const [users, setUsers] = useState([]);
 
   const signin = (obj) => {
     setUser(obj);
@@ -30,7 +31,13 @@ function useProvideAuth() {
     });
   };
 
+  const setListuser = (data) => {
+    setUsers(data);
+  };
+
   return {
+    users,
+    setListuser,
     user,
     signin,
     signout,
