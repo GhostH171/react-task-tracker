@@ -1,19 +1,52 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../home/Footer";
+import Task from "../home/Task";
 
-const Register = () => {
+const Register = ({ onAdd }) => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const signup = (e) => {
-    e.preventDefault();
-    localStorage.setItem(username, password);
+
+  const [users, setUsers] = useState([]);
+  const getUsers = async () => {
+    const usersFromServer = await fetchUsers();
+    setUsers(usersFromServer);
   };
 
+  const fetchUsers = async () => {
+    const res = await fetch("http://localhost:5000/users");
+    // Get data from response
+    const data = await res.json();
+    return data;
+  };
+
+  useEffect(() => {
+    getUsers();
+  }, []);
+  const addUser = async (user) => {
+    const res = await fetch("http://localhost:5000/users", {
+      method: "POST",
+    });
+    const data = await res.json();
+    console.log(user);
+    setUsers([...users, data]);
+  };
+  let registerHandler = (e) => {
+    e.preventDefault();
+    console.log(username, password);
+    console.log(users);
+    const checkDuplicate = users.find((data) => data.username === username);
+    if (checkDuplicate) {
+      alert("Account is already existed");
+      navigate("/Register");
+    } else {
+      addUser();
+    }
+  };
   return (
     <div className="container">
-      <form onSubmit={signup}>
+      <form onSubmit={registerHandler}>
         <div className="form-control">
           <label>User Name</label>
           <input
@@ -33,15 +66,15 @@ const Register = () => {
           />
         </div>
         <input type="submit" value="Sign Up" className="btn btn-block" />
-        <input
-          value="Back to Login"
-          type="submit"
-          className="btn btn-block"
-          onClick={() => {
-            navigate("/login");
-          }}
-        />
       </form>
+      <input
+        value="Back to Login"
+        type="submit"
+        className="btn btn-block"
+        onClick={() => {
+          navigate("/login");
+        }}
+      />
 
       <Footer />
     </div>

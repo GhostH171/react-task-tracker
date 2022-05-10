@@ -11,7 +11,7 @@ const Logout = () => {
         text={"Log Out"}
         type={"submit"}
         onClick={() => {
-          navigate("/");
+          navigate("/Login");
         }}
       />
     </form>

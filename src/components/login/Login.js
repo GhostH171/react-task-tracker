@@ -5,6 +5,8 @@ import { useAuth } from "../context/ContextApp";
 import Footer from "../home/Footer";
 
 const LoginForm = (props) => {
+  const { callbackFunc } = props;
+
   let navigate = useNavigate();
   let location = useLocation();
   let auth = useAuth();
@@ -12,18 +14,17 @@ const LoginForm = (props) => {
 
   let login = () => {
     if (username !== "" && password !== "") {
-      auth.signin({ user: username, passoword: password }, () => {});
+      auth.signin({ username: username, password: password }, () => {});
       navigate("/");
     } else {
-      alert("nhap vao di");
+      alert("Input Email and Password");
     }
   };
-
-  const a = 5;
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [users, setUsers] = useState([]);
+  console.log(users);
   const getUsers = async () => {
     const usersFromServer = await fetchUsers();
     setUsers(usersFromServer);
@@ -42,18 +43,18 @@ const LoginForm = (props) => {
 
   const onClickHandler = () => {
     const findUser = users.find(
-      (data) => data.username === username && data.passoword === password
+      (data) => data.username === username && data.password === password
     );
     if (findUser) {
       navigate("/App");
     } else {
-      navigate("/login");
+      navigate("/Login");
     }
   };
 
   return (
     <div className="container">
-      <form onSubmit={login}>
+      <form onSubmit={onClickHandler}>
         <div className="form-control">
           <label>User Name</label>
           <input
@@ -64,20 +65,15 @@ const LoginForm = (props) => {
           />
         </div>
         <div className="form-control">
-          <label>password</label>
+          <label>Password</label>
           <input
             type="password"
-            placeholder="password"
+            placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <input
-          type="submit"
-          value="Log In"
-          className="btn btn-block"
-          onClick={onClickHandler}
-        />
+        <input type="submit" value="Log In" className="btn btn-block" />
       </form>
       <input
         type="button"
