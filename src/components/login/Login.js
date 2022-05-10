@@ -5,23 +5,21 @@ import { useAuth } from "../context/ContextApp";
 import Footer from "../home/Footer";
 
 const LoginForm = (props) => {
-  const { callbackFunc } = props;
-
   let navigate = useNavigate();
   let location = useLocation();
   let auth = useAuth();
   let {} = location.state || { from: { pathname: "/" } };
 
   let login = () => {
-    if (user !== "" && email !== "") {
-      auth.signin({ user: user, email: email }, () => {});
+    if (username !== "" && password !== "") {
+      auth.signin({ user: username, passoword: password }, () => {});
       navigate("/");
     } else {
       alert("nhap vao di");
     }
   };
-  const [user, setUser] = useState("");
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [users, setUsers] = useState([]);
   const getUsers = async () => {
     const usersFromServer = await fetchUsers();
@@ -29,7 +27,7 @@ const LoginForm = (props) => {
   };
 
   const fetchUsers = async () => {
-    const res = await fetch("https://jsonplaceholder.typicode.com/users");
+    const res = await fetch("http://localhost:5000/users");
     // Get data from response
     const data = await res.json();
     console.log(data);
@@ -40,10 +38,6 @@ const LoginForm = (props) => {
     getUsers();
   }, []);
 
-  useEffect(() => {
-    callbackFunc(true);
-  }, [users, callbackFunc]);
-
   return (
     <div className="container">
       <form onSubmit={login}>
@@ -52,17 +46,17 @@ const LoginForm = (props) => {
           <input
             type="text"
             placeholder="User Name"
-            value={user}
-            onChange={(e) => setUser(e.target.value)}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
         </div>
         <div className="form-control">
-          <label>Email</label>
+          <label>password</label>
           <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            type="password"
+            placeholder="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
         <input type="submit" value="Log In" className="btn btn-block" />

@@ -1,70 +1,32 @@
 {
   "tasks": [
     {
-      "id": 2,
-      "text": "Doctor apointment",
-      "day": "Feb, 5th at 2:30pm",
-      "reminder": true,
-      "createdbyId": 1
+      "title": "adfsdf",
+      "day": "asdfasdf",
+      "completed": false,
+      "id": 9
     },
     {
-      "id": 3,
-      "text": "Doctor apointment",
-      "day": "Feb, 5th at 2:30pm",
-      "reminder": true,
-      "createdbyId": 1
-    },
-    {
-      "text": "Get Married",
-      "day": "Feb, 5th at 2:30pm",
-      "reminder": true,
-      "id": 4,
-      "createdbyId": 2
-    },
-    {
-      "text": "Hello",
+      "title": "asdasd",
       "day": "asdasd",
-      "reminder": true,
-      "createdbyId": "",
-      "id": 5
+      "completed": false,
+      "id": 10
     },
     {
-      "text": "raxc",
-      "day": "asdas",
-      "reminder": false,
-      "createdbyId": "",
-      "id": 6
-    },
-    {
-      "text": "dad",
-      "day": "ada",
-      "reminder": false,
-      "createdbyId": "",
-      "id": 7
-    },
-    {
-      "text": "abc@gmail.com",
-      "day": "123456a",
-      "reminder": false,
-      "createdbyId": "",
-      "id": 8
+      "title": "sdaasd",
+      "day": "asdasd",
+      "completed": false,
+      "id": 11
     }
   ],
-  "accounts": [
+  "users": [
     {
-      "id": 1,
-      "email": "abc@gmail.com",
-      "password": "123456a"
+      "username": "pkhoang",
+      "password": "123456"
     },
     {
-      "id": 2,
-      "email": "abcd@gmail.com",
-      "password": "123456a"
-    }
-  ],
-  "auth": [
-    {
-      "id": 1
+      "username": "wiburach",
+      "password": "123456"
     }
   ]
 }

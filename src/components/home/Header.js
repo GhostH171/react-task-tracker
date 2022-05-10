@@ -6,7 +6,7 @@ import Button from "./Button";
 const Header = ({ title, onAdd, showAdd }) => {
   return (
     <header className="header">
-      <h1>{title} </h1>
+      <h1>Todo list </h1>
       <Button
         color={showAdd ? "red" : "green"}
         text={showAdd ? "Close" : "Add"}
@@ -15,18 +15,5 @@ const Header = ({ title, onAdd, showAdd }) => {
     </header>
   );
 };
-
-Header.defaultProps = {
-  title: "Todo Tracker",
-};
-
-Header.propTypes = {
-  title: PropTypes.string.isRequired,
-};
-// Css in JS
-// const HeadingStyle = {
-//   color: "red",
-//   backgroundColor: "black",
-// };
 
 export default Header;

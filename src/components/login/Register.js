@@ -5,10 +5,10 @@ import Footer from "../home/Footer";
 const Register = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const signup = (e) => {
     e.preventDefault();
-    localStorage.setItem(username, email);
+    localStorage.setItem(username, password);
   };
 
   return (
@@ -24,12 +24,12 @@ const Register = () => {
           />
         </div>
         <div className="form-control">
-          <label>Email</label>
+          <label>Password</label>
           <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
         <input type="submit" value="Sign Up" className="btn btn-block" />

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 const AddTask = ({ onAdd }) => {
   const [title, setTitle] = useState("");
-  const [userId, setUserId] = useState(0);
+  const [day, setDay] = useState("");
   const [completed, setCompleted] = useState(false);
 
   const onSubmit = (e) => {
@@ -12,9 +12,9 @@ const AddTask = ({ onAdd }) => {
       alert("Please add a todo");
       return;
     }
-    onAdd({ title, userId, completed });
+    onAdd({ title, day, completed });
     setTitle("");
-    setUserId(0);
+    setDay("");
     setCompleted(false);
   };
 
@@ -30,14 +30,13 @@ const AddTask = ({ onAdd }) => {
         />
       </div>
       <div className="form-control">
-        <label>Created by Id </label>
+        <label>Day and Time</label>
         <input
-          type="number"
-          placeholder="Id"
-          value={userId}
-          onChange={(e) => setUserId(e.target.value)}
-          min={0}
-        />
+          type="text"
+          placeholder="Day & Time"
+          value={day}
+          onChange={(e) => setDay(e.target.value)}
+        ></input>
       </div>
       <div className="form-control form-control-check">
         <label>Set Completed</label>

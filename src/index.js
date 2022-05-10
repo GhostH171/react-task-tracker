@@ -9,27 +9,17 @@ import Register from "./components/login/Register";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 
-export function PrivateRoute({ children, ...rest }) {
-  let auth = useAuth();
-  const callBackToSetListUser = (childData) => {};
-
-  const [flag, setFlag] = useState(false);
-
-  return flag ? <App /> : <Login callbackFunc={callBackToSetListUser} />;
-}
-
 ReactDOM.render(
   <React.StrictMode>
     <ProvideAuth>
       <BrowserRouter>
-        <>
-          <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/" element={<PrivateRoute />} />
-            <Route path="*" element={<Errorpage />} />
-            <Route path="/Register" element={<Register />} />
-          </Routes>
-        </>
+        <Routes>
+          <Route index element={<App />} />
+          <Route path="/login" element={<Login />} />
+
+          <Route path="/Register" element={<Register />} />
+          <Route path="*" element={<Errorpage />} />
+        </Routes>
       </BrowserRouter>
     </ProvideAuth>
   </React.StrictMode>,

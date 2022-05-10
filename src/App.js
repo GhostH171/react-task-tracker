@@ -20,19 +20,16 @@ function App() {
   }, [flag]);
   // // fetch tasks
   const fetchTasks = async () => {
-    const res = await fetch("https://jsonplaceholder.typicode.com/todos");
+    const res = await fetch("http://localhost:5000/tasks");
     const data = await res.json();
     return data;
   };
 
   // fetch task
   const fetchTask = async (id) => {
-    const res = await fetch(
-      `https://jsonplaceholder.typicode.com/todos/${id}`,
-      {
-        method: "GET",
-      }
-    );
+    const res = await fetch(`http://localhost:5000/tasks/${id}`, {
+      method: "GET",
+    });
 
     const data = await res.json();
 
@@ -41,7 +38,7 @@ function App() {
 
   // //Add Task
   const addTask = async (task) => {
-    await fetch("https://jsonplaceholder.typicode.com/todos", {
+    const res = await fetch("http://localhost:5000/tasks", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -49,14 +46,18 @@ function App() {
       body: JSON.stringify(task),
     });
     setFlag(!flag);
+    const data = await res.json();
+    setTasks([...tasks, data]);
   };
 
   //Delete Task
   const deleteTask = async (id) => {
-    await fetch(`https://jsonplaceholder.typicode.com/todos/${id}`, {
+    const res = await fetch(`http://localhost:5000/tasks/${id}`, {
       method: "DELETE",
     });
     setFlag(!flag);
+    const data = await res.json();
+    setTasks([...tasks, data]);
   };
 
   //Toggle Reminder
@@ -64,7 +65,7 @@ function App() {
     const taskToToggle = await fetchTask(id);
     const updTask = { ...taskToToggle, completed: !taskToToggle.completed };
 
-    await fetch(`https://jsonplaceholder.typicode.com/todos/${id}`, {
+    await fetch(`http://localhost:5000/tasks/${id}`, {
       method: "PUT",
       headers: {
         "Content-type": "application/json",
