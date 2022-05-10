@@ -7,26 +7,15 @@ import Tasks from "./components/home/Tasks";
 import Logout from "./components/login/Logout";
 
 function App() {
-  const [showAddTask, setShowAddTask] = useState(true);
+  const [showAddTask, setShowAddTask] = useState(fal);
   const [tasks, setTasks] = useState([]);
   const [flag, setFlag] = useState(true);
-  const [userId, setUserId] = useState(true);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const getTasks = async () => {
     const tasksFromServer = await fetchTasks();
     setTasks(tasksFromServer);
   };
-
-  // const getTaskbyUserId = () => {
-  //   const tasksFromServerById = tasks.filter((data) => data.userId === userId);
-  //   if (tasksFromServerById) {
-  //     setTasks(tasksFromServerById);
-  //   } else {
-  //     setTasks(null);
-  //   }
-  // };
-  // console.log(getTaskbyUserId(1));
   useEffect(() => {
     getTasks();
   }, [flag]);
