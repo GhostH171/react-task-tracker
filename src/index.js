@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import App from "./App";
 import { ProvideAuth, useAuth } from "./components/context/ContextApp";
 import Errorpage from "./components/login/Errorpage";
@@ -9,17 +9,37 @@ import Register from "./components/login/Register";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 
+const AuthenticatePages = () => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  console.log(user);
+  useEffect(() => {
+    if (!user) {
+      navigate("/Login");
+    }
+  }, []);
+
+  return (
+    <Routes>
+      {user ? (
+        <Route index element={<App />} />
+      ) : (
+        <>
+          <Route path="/Login" element={<Login />} />
+          <Route path="/Register" element={<Register />} />
+        </>
+      )}
+
+      <Route path="*" element={<Errorpage />} />
+    </Routes>
+  );
+};
+
 ReactDOM.render(
   <React.StrictMode>
     <ProvideAuth>
       <BrowserRouter>
-        <Routes>
-          <Route index element={<App />} />
-          <Route path="/login" element={<Login />} />
-
-          <Route path="/Register" element={<Register />} />
-          <Route path="*" element={<Errorpage />} />
-        </Routes>
+        <AuthenticatePages />
       </BrowserRouter>
     </ProvideAuth>
   </React.StrictMode>,

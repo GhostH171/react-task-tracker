@@ -7,7 +7,7 @@ import Tasks from "./components/home/Tasks";
 import Logout from "./components/login/Logout";
 
 function App() {
-  const [showAddTask, setShowAddTask] = useState(fal);
+  const [showAddTask, setShowAddTask] = useState();
   const [tasks, setTasks] = useState([]);
   const [flag, setFlag] = useState(true);
 

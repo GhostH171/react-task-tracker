@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../home/Footer";
-import Task from "../home/Task";
 
-const Register = ({ onAdd }) => {
+const Register = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
   const [users, setUsers] = useState([]);
+
   const getUsers = async () => {
     const usersFromServer = await fetchUsers();
     setUsers(usersFromServer);
@@ -24,29 +23,45 @@ const Register = ({ onAdd }) => {
   useEffect(() => {
     getUsers();
   }, []);
-  const addUser = async (user) => {
+
+  const updateUsers = async (user) => {
     const res = await fetch("http://localhost:5000/users", {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
     });
     const data = await res.json();
-    console.log(user);
     setUsers([...users, data]);
   };
-  let registerHandler = (e) => {
+
+  let onRegisterHandler = async (e) => {
     e.preventDefault();
-    console.log(username, password);
+
     console.log(users);
+
     const checkDuplicate = users.find((data) => data.username === username);
+
+    if (!username || !password) {
+      alert("Invalid data!");
+      return;
+    }
+
     if (checkDuplicate) {
       alert("Account is already existed");
-      navigate("/Register");
-    } else {
-      addUser();
+      return;
     }
+
+    updateUsers({
+      username,
+      password,
+    });
   };
+
   return (
     <div className="container">
-      <form onSubmit={registerHandler}>
+      <form onSubmit={onRegisterHandler}>
         <div className="form-control">
           <label>User Name</label>
           <input
@@ -72,7 +87,7 @@ const Register = ({ onAdd }) => {
         type="submit"
         className="btn btn-block"
         onClick={() => {
-          navigate("/login");
+          navigate("/Login");
         }}
       />
 

@@ -1,21 +1,15 @@
 {
   "tasks": [
     {
-      "title": "adfsdf",
-      "day": "asdfasdf",
-      "completed": false,
-      "id": 9
-    },
-    {
       "title": "sdaasd",
       "day": "asdasd",
-      "completed": false,
+      "completed": true,
       "id": 11
     },
     {
       "title": "ádfadsf",
       "day": "ádfasdf",
-      "completed": false,
+      "completed": true,
       "id": 12
     },
     {
@@ -34,11 +28,23 @@
   "users": [
     {
       "username": "pkhoang",
-      "password": "123456"
+      "password": "123456",
+      "id": 1
     },
     {
       "username": "wiburach",
-      "password": "123456"
+      "password": "123456",
+      "id": 2
+    },
+    {
+      "username": "sgsrgs",
+      "password": "efsef",
+      "id": 3
+    },
+    {
+      "username": "werwerwe",
+      "password": "rwerwere",
+      "id": 4
     }
   ]
 }

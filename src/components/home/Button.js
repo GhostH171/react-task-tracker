@@ -6,7 +6,7 @@ const Button = ({ color, text, onClick }) => {
     <div>
       <button
         onClick={onClick}
-        style={{ backgroundColor: color }}
+        style={{ backgroundColor: color, minWidth: "100%", marginTop: "20px" }}
         className="btn"
       >
         {text}

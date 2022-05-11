@@ -4,22 +4,20 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/ContextApp";
 import Footer from "../home/Footer";
 
-const LoginForm = (props) => {
-  const { callbackFunc } = props;
-
+const Login = (props) => {
   let navigate = useNavigate();
   let location = useLocation();
   let auth = useAuth();
   let {} = location.state || { from: { pathname: "/" } };
 
-  let login = () => {
-    if (username !== "" && password !== "") {
-      auth.signin({ username: username, password: password }, () => {});
-      navigate("/");
-    } else {
-      alert("Input Email and Password");
-    }
-  };
+  // let login = () => {
+  //   if (username !== "" && password !== "") {
+  //     auth.signin({ username: username, password: password }, () => {});
+  //     navigate("/");
+  //   } else {
+  //     alert("Input Email and Password");
+  //   }
+  // };
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -42,11 +40,15 @@ const LoginForm = (props) => {
   }, []);
 
   const onClickHandler = () => {
+    auth.signin({
+      username,
+      password,
+    });
     const findUser = users.find(
       (data) => data.username === username && data.password === password
     );
     if (findUser) {
-      navigate("/App");
+      navigate("/");
     } else {
       navigate("/Login");
     }
@@ -89,4 +91,4 @@ const LoginForm = (props) => {
   );
 };
 
-export default LoginForm;
+export default Login;
